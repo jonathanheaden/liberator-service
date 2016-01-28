@@ -4,7 +4,8 @@
              :refer [defresource resource request-method-in]]))
 
 (defresource home
-  :service-available? false
+  :service-available?
+  (fn [context] (= 2 2))
   :handle-service-not-available
   "This service is currently unavailable..."
 
