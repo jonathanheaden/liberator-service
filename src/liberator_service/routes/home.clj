@@ -1,9 +1,12 @@
 (ns liberator-service.routes.home
   (:require [compojure.core :refer :all]
-            [liberator-service.views.layout :as layout]))
-
-(defn home []
-  (layout/common [:h1 "Hello World!"]))
+            [liberator.core :refer [defresource resource request -mothod-in]]
+            ))
 
 (defroutes home-routes
-  (GET "/" [] (home)))
+  (ANY "/" request
+       (resource
+        :handle-ok "Hello World!"
+        :etag "fixed-etag"
+        :available-media-types ["text/plain"])))
+
