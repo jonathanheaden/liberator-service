@@ -4,9 +4,11 @@
             ))
 
 (defresource home
-  :method-allowed?
+  :service-available? true
+  :method-allowed? (request-method-in :get)
+  :handle-method-not-allowed
   (fn [context]
-    (= :get (get-in context [:request :request-method])))
+    (str (get-in context [:request :request-method]) " is not allowed"))
   :handle-ok "Hello World!"
   :etag "fixed-etag"
   :available-media-types ["text/plain"])
