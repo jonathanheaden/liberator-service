@@ -3,12 +3,10 @@
             [liberator.core
              :refer [defresource resource request-method-in]]))
 
-;;(defn home []
-;;  (layout/common [:h1 "Hello World!"]))
+(defresource home
+  :handle-ok "Hello World!"
+  :etag "fixed-etag"
+  :available-media-types ["text/plain"])
 
 (defroutes home-routes
-  (ANY "/" request
-       (resource
-        :handle-ok "Hello again World!"
-        :etag "fixed-etag"
-        :available-media-types ["text/plain"])))
+  (ANY "/" request home))
