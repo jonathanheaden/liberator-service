@@ -4,7 +4,10 @@
             ))
 
 (defresource home
-  :service-available? true
+  :service-available? false
+  :handle-service-not-available
+  "service is currently unavailable ..."
+  
   :method-allowed? (request-method-in :get)
   :handle-method-not-allowed
   (fn [context]
