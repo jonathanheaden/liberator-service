@@ -1,6 +1,6 @@
 # liberator-service
 
-FIXME
+Following tutorial from 'Web Development with Clojure' 
 
 ## Prerequisites
 

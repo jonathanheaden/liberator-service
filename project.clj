@@ -1,6 +1,6 @@
 (defproject liberator-service "0.1.0-SNAPSHOT"
-  :description "FIXME: write description"
-  :url "http://example.com/FIXME"
+  :description "tutorial from 'Web Development with Clojure'"
+  :url "no url yet"
   :dependencies [[org.clojure/clojure "1.6.0"]
                  [compojure "1.1.6"]
                  [hiccup "1.0.5"]
@@ -15,4 +15,7 @@
    {:ring
     {:open-browser? false, :stacktraces? false, :auto-reload? false}}
    :dev
-   {:dependencies [[ring-mock "0.1.5"] [ring/ring-devel "1.3.1"]]}})
+   {:dependencies [[ring-mock "0.1.5"]
+                   [ring/ring-devel "1.3.1"]
+                   [liberator "0.11.0"]
+                   [cheshire "5.3.1"]]}})
