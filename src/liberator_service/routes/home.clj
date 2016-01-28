@@ -4,9 +4,7 @@
              :refer [defresource resource request-method-in]]))
 
 (defresource home
-  :method-allowed?
-  (fn [context]
-    (= :get (get-in context [:request :request-method])))
+  :allowed-methods [:get]
   :handle-ok "Hello World!"
   :etag "fixed-etag"
   :available-media-types ["text/plain"])
