@@ -19,4 +19,5 @@
                    [ring/ring-devel "1.3.1"]
                    [liberator "0.11.0"]
                    [cheshire "5.3.1"]
+                   [lib-noir "0.7.2"]
                    ]}})
