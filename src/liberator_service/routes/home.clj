@@ -2,21 +2,22 @@
   (:require [compojure.core :refer :all]
             [liberator.core
              :refer [defresource resource request-method-in]]
-            [cheshire.core :refer [generate-string]]))
+            [cheshire.core :refer [generate-string]]
+            [noir.io :as io]
+            [clojure.java.io :refer [file]]
+            ))
 
 (defresource home
-  :service-available?
-  (fn [context] (= 2 2))
-  :handle-service-not-available
-  "This service is currently unavailable..."
-
-  :method-allowed? (request-method-in :get)
-  :handle-method-not-allowed
+  :available-media-types ["text/html"]
+  :exists?
   (fn [context]
-    (str (get-in context [:request :request-method]) " is not allowed"))
-
-  :handle-ok "Hello World!"
-  :etag "fixed-etag" :available-media-types ["text/plain"])
+    [(io/get-resource "/home.html")
+     {::file (file (str (io/resource-path) "/home.html"))}])
+  :handle-ok
+  (fn [{{{resource :resource} :route-params} :request}]
+    (clojure.java.io/input-stream (io/get-resource "/home.html"))) :last-modified
+  (fn [{{{resource :resource} :route-params} :request}]
+    (.lastModified (file (str (io/resource-path) "/home.html")))))
 
 (defroutes home-routes
   (ANY "/" request home))
