@@ -9,18 +9,17 @@
 
 (defresource home
   :available-media-types ["text/html"]
+
   :exists?
   (fn [context]
     [(io/get-resource "/home.html")
      {::file (file (str (io/resource-path) "/home.html"))}])
+
   :handle-ok
   (fn [{{{resource :resource} :route-params} :request}]
     (clojure.java.io/input-stream (io/get-resource "/home.html"))) :last-modified
   (fn [{{{resource :resource} :route-params} :request}]
     (.lastModified (file (str (io/resource-path) "/home.html")))))
-
-(defroutes home-routes
-  (ANY "/" request home))
 
 (def users (atom ["John" "Jane"]))
 
@@ -37,4 +36,10 @@
       (swap! users conj (get params "user"))))
   :handle-created (fn [_] (generate-string @users))
   :available-media-types ["application/json"])
+
+(defroutes home-routes
+  (ANY "/" request home)
+  (ANY "/add-user" request add-user)
+  (ANY "/users" request get-users)
+  )
 
